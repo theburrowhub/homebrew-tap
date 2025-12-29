@@ -11,11 +11,21 @@ class GitGone < Formula
     on_arm do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone-macos-arm64.tar.gz"
       sha256 "817fd37088108f9cb0a0351ca0195f3330ec1623bf2d1137ec7be48816d9881e"
+
+      def install
+        bin.install "git-gone-macos-arm64" => "git-gone"
+        generate_completions_from_executable(bin/"git-gone", "completion")
+      end
     end
 
     on_intel do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone-macos-amd64.tar.gz"
       sha256 "cff4d90f2d71d2113ea946a723468a8e024d3a6ce3520492d3da892c4ac3098c"
+
+      def install
+        bin.install "git-gone-macos-amd64" => "git-gone"
+        generate_completions_from_executable(bin/"git-gone", "completion")
+      end
     end
   end
 
@@ -23,18 +33,22 @@ class GitGone < Formula
     on_arm do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone-linux-arm64.tar.gz"
       sha256 "cfedcb066ed1c7f554b42073cf4ba25802318aa39c1f0d17bb235836f9e16b6a"
+
+      def install
+        bin.install "git-gone-linux-arm64" => "git-gone"
+        generate_completions_from_executable(bin/"git-gone", "completion")
+      end
     end
 
     on_intel do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone-linux-amd64.tar.gz"
       sha256 "f3daedeb888870982ac8e7f73288e16980179d5b4f4d76bc00e48152ea735889"
+
+      def install
+        bin.install "git-gone-linux-amd64" => "git-gone"
+        generate_completions_from_executable(bin/"git-gone", "completion")
+      end
     end
-  end
-
-  def install
-    bin.install "git-gone"
-
-    generate_completions_from_executable(bin/"git-gone", "completion")
   end
 
   test do
