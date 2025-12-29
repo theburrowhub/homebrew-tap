@@ -33,6 +33,8 @@ class Krakenv < Formula
 
   def install
     bin.install "krakenv"
+
+    generate_completions_from_executable(bin/"krakenv", "completion")
   end
 
   test do

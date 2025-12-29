@@ -33,10 +33,11 @@ class GoSecret < Formula
 
   def install
     bin.install "go-secrets"
+
+    generate_completions_from_executable(bin/"go-secrets", "completion")
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/go-secrets --version")
   end
 end
-

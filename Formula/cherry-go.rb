@@ -33,10 +33,11 @@ class CherryGo < Formula
 
   def install
     bin.install "cherry-go"
+
+    generate_completions_from_executable(bin/"cherry-go", "completion")
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/cherry-go --version")
   end
 end
-

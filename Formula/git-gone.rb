@@ -33,10 +33,11 @@ class GitGone < Formula
 
   def install
     bin.install "git-gone"
+
+    generate_completions_from_executable(bin/"git-gone", "completion")
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/git-gone --version")
   end
 end
-
