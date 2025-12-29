@@ -18,23 +18,41 @@ Environment variable management with annotation-based wizards.
 brew install theburrowhub/tap/krakenv
 ```
 
-Or, after tapping:
+### go-secret
+
+A beautiful terminal UI for managing GCP Secret Manager secrets.
 
 ```bash
-brew install krakenv
+brew install theburrowhub/tap/go-secret
+```
+
+### git-gone
+
+A simple tool to clean up Git branches.
+
+```bash
+brew install theburrowhub/tap/git-gone
+```
+
+### cherry-go
+
+A CLI tool for partial file versioning from other Git repositories.
+
+```bash
+brew install theburrowhub/tap/cherry-go
 ```
 
 ## Automatic Formula Updates
 
-This tap supports automatic formula updates via GitHub Actions. There are three ways to trigger an update:
+This tap supports automatic formula updates via GitHub Actions.
 
-### 1. Manual Dispatch (GitHub UI)
+### Manual Dispatch (GitHub UI)
 
-Go to Actions → "Update Formula" → "Run workflow" and optionally specify:
-- `version`: Target version (defaults to latest release)
-- `formula`: Formula name (defaults to `krakenv`)
+Go to Actions → "Update Formula" → "Run workflow" and select:
+- `formula`: Which formula to update
+- `version`: Target version (optional, defaults to latest release)
 
-### 2. Repository Dispatch (from another repo)
+### Repository Dispatch (from project repos)
 
 Send a `repository_dispatch` event from your release workflow:
 
@@ -50,28 +68,14 @@ Send a `repository_dispatch` event from your release workflow:
 
 > **Note**: Requires a PAT with `repo` scope stored as `TAP_GITHUB_TOKEN` secret.
 
-### 3. GoReleaser Integration
-
-Add to your `.goreleaser.yml`:
-
-```yaml
-brews:
-  - name: krakenv
-    repository:
-      owner: theburrowhub
-      name: homebrew-tap
-      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-    directory: Formula
-    homepage: "https://github.com/theburrowhub/krakenv"
-    description: "Environment variable management with annotation-based wizards"
-    license: "MIT"
-    test: |
-      system "#{bin}/krakenv version"
-```
-
 ## Documentation
 
-- [krakenv](https://github.com/theburrowhub/krakenv) - When envs get complex, release the krakenv
+| Formula | Repository | Description |
+|---------|------------|-------------|
+| krakenv | [theburrowhub/krakenv](https://github.com/theburrowhub/krakenv) | When envs get complex, release the krakenv |
+| go-secret | [theburrowhub/go-secret](https://github.com/theburrowhub/go-secret) | Terminal UI for GCP Secret Manager |
+| git-gone | [theburrowhub/git-gone](https://github.com/theburrowhub/git-gone) | Clean up Git branches |
+| cherry-go | [theburrowhub/cherry-go](https://github.com/theburrowhub/cherry-go) | Partial file versioning from Git repos |
 
 ## License
 

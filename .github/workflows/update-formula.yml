@@ -9,9 +9,15 @@ on:
         description: 'Version to update (e.g., 0.0.2)'
         required: false
       formula:
-        description: 'Formula name (e.g., krakenv)'
-        required: false
+        description: 'Formula name (krakenv, go-secret, git-gone, cherry-go)'
+        required: true
         default: 'krakenv'
+        type: choice
+        options:
+          - krakenv
+          - go-secret
+          - git-gone
+          - cherry-go
 
 jobs:
   update-formula:
@@ -22,19 +28,6 @@ jobs:
     steps:
       - name: Checkout tap
         uses: actions/checkout@v4
-
-      - name: Get version
-        id: version
-        run: |
-          if [ -n "${{ github.event.inputs.version }}" ]; then
-            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-          elif [ -n "${{ github.event.client_payload.version }}" ]; then
-            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
-          else
-            # Fetch latest release from krakenv
-            VERSION=$(curl -s https://api.github.com/repos/theburrowhub/krakenv/releases/latest | jq -r '.tag_name' | sed 's/^v//')
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-          fi
 
       - name: Get formula name
         id: formula
@@ -47,46 +40,86 @@ jobs:
             echo "name=krakenv" >> $GITHUB_OUTPUT
           fi
 
-      - name: Download and calculate SHA256
-        id: sha256
+      - name: Get version
+        id: version
         env:
-          VERSION: ${{ steps.version.outputs.version }}
           FORMULA: ${{ steps.formula.outputs.name }}
         run: |
-          BASE_URL="https://github.com/theburrowhub/${FORMULA}/releases/download/v${VERSION}"
-          
-          echo "Downloading artifacts for ${FORMULA} v${VERSION}..."
-          
-          SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_darwin_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
-          SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_darwin_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
-          SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_linux_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
-          SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_linux_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
-          
-          echo "sha_darwin_arm64=$SHA_DARWIN_ARM64" >> $GITHUB_OUTPUT
-          echo "sha_darwin_amd64=$SHA_DARWIN_AMD64" >> $GITHUB_OUTPUT
-          echo "sha_linux_arm64=$SHA_LINUX_ARM64" >> $GITHUB_OUTPUT
-          echo "sha_linux_amd64=$SHA_LINUX_AMD64" >> $GITHUB_OUTPUT
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          elif [ -n "${{ github.event.client_payload.version }}" ]; then
+            VERSION="${{ github.event.client_payload.version }}"
+            VERSION="${VERSION#v}"
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          else
+            VERSION=$(curl -s "https://api.github.com/repos/theburrowhub/${FORMULA}/releases/latest" | jq -r '.tag_name' | sed 's/^v//')
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Update formula
+      - name: Download checksums and update formula
         env:
           VERSION: ${{ steps.version.outputs.version }}
           FORMULA: ${{ steps.formula.outputs.name }}
-          SHA_DARWIN_ARM64: ${{ steps.sha256.outputs.sha_darwin_arm64 }}
-          SHA_DARWIN_AMD64: ${{ steps.sha256.outputs.sha_darwin_amd64 }}
-          SHA_LINUX_ARM64: ${{ steps.sha256.outputs.sha_linux_arm64 }}
-          SHA_LINUX_AMD64: ${{ steps.sha256.outputs.sha_linux_amd64 }}
         run: |
           FORMULA_FILE="Formula/${FORMULA}.rb"
+          BASE_URL="https://github.com/theburrowhub/${FORMULA}/releases/download/v${VERSION}"
+          
+          echo "Updating ${FORMULA} to v${VERSION}..."
+          
+          # Different projects have different naming conventions
+          case "${FORMULA}" in
+            "krakenv")
+              SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/krakenv_${VERSION}_darwin_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/krakenv_${VERSION}_darwin_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/krakenv_${VERSION}_linux_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/krakenv_${VERSION}_linux_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              ;;
+            "go-secret")
+              SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_darwin_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_darwin_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_linux_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_linux_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              ;;
+            "git-gone"|"cherry-go")
+              SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}-macos-arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}-macos-amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}-linux-arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}-linux-amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              ;;
+          esac
+          
+          echo "SHA256 checksums:"
+          echo "  darwin_arm64: $SHA_DARWIN_ARM64"
+          echo "  darwin_amd64: $SHA_DARWIN_AMD64"
+          echo "  linux_arm64: $SHA_LINUX_ARM64"
+          echo "  linux_amd64: $SHA_LINUX_AMD64"
+          
+          # Verify we got valid checksums (not HTML error pages)
+          if [[ "$SHA_DARWIN_ARM64" == "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5" ]]; then
+            echo "Error: Got invalid checksum (likely 404 page). Check release assets."
+            exit 1
+          fi
           
           # Update version
           sed -i "s/version \".*\"/version \"${VERSION}\"/" "$FORMULA_FILE"
           
-          # Update SHA256 hashes (match the line after each architecture block)
-          sed -i "/darwin_arm64.tar.gz/,/sha256/{s/sha256 \".*\"/sha256 \"${SHA_DARWIN_ARM64}\"/}" "$FORMULA_FILE"
-          sed -i "/darwin_amd64.tar.gz/,/sha256/{s/sha256 \".*\"/sha256 \"${SHA_DARWIN_AMD64}\"/}" "$FORMULA_FILE"
-          sed -i "/linux_arm64.tar.gz/,/sha256/{s/sha256 \".*\"/sha256 \"${SHA_LINUX_ARM64}\"/}" "$FORMULA_FILE"
-          sed -i "/linux_amd64.tar.gz/,/sha256/{s/sha256 \".*\"/sha256 \"${SHA_LINUX_AMD64}\"/}" "$FORMULA_FILE"
+          # Update SHA256 hashes - match lines after URL patterns
+          # For on_arm blocks (darwin)
+          sed -i "/darwin_arm64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_DARWIN_ARM64}\"/}" "$FORMULA_FILE"
+          # For on_intel blocks (darwin)
+          sed -i "/darwin_amd64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_DARWIN_AMD64}\"/}" "$FORMULA_FILE"
+          # For macos-arm64 (git-gone, cherry-go style)
+          sed -i "/macos-arm64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_DARWIN_ARM64}\"/}" "$FORMULA_FILE"
+          # For macos-amd64 (git-gone, cherry-go style)
+          sed -i "/macos-amd64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_DARWIN_AMD64}\"/}" "$FORMULA_FILE"
+          # For linux_arm64
+          sed -i "/linux_arm64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_LINUX_ARM64}\"/}" "$FORMULA_FILE"
+          sed -i "/linux-arm64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_LINUX_ARM64}\"/}" "$FORMULA_FILE"
+          # For linux_amd64
+          sed -i "/linux_amd64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_LINUX_AMD64}\"/}" "$FORMULA_FILE"
+          sed -i "/linux-amd64/,/sha256/{s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA_LINUX_AMD64}\"/}" "$FORMULA_FILE"
           
+          echo "Updated formula:"
           cat "$FORMULA_FILE"
 
       - name: Commit and push
@@ -99,4 +132,3 @@ jobs:
           git add Formula/
           git diff --staged --quiet || git commit -m "chore(${FORMULA}): update to v${VERSION}"
           git push
-
