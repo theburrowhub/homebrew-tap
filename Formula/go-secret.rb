@@ -34,7 +34,7 @@ class GoSecret < Formula
   def install
     bin.install "go-secrets"
 
-    generate_completions_from_executable(bin/"go-secrets", "completion")
+    #generate_completions_from_executable(bin/"go-secrets", "completion")
   end
 
   test do
