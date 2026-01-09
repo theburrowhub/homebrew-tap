@@ -4,13 +4,13 @@
 class GitGone < Formula
   desc "A simple tool to clean up Git branches"
   homepage "https://github.com/theburrowhub/git-gone"
-  version "0.8.5"
+  version "0.9.0"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone_#{version}_darwin_arm64.tar.gz"
-      sha256 "c64adb0ae6a569428d8c1cc67b96922a5c58894c5117b6f24e2822eaa3917bf4"
+      sha256 "cef6fc9a02a4621631a0f796678149b014457ead362ff8279cc8118a5cd7fd1b"
 
       def install
         bin.install "git-gone"
@@ -20,7 +20,7 @@ class GitGone < Formula
 
     on_intel do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone_#{version}_darwin_amd64.tar.gz"
-      sha256 "4b81821ea8ee31dbcca0b8c51b570bcc1507217251e2c4b1952795e15ab0b4e4"
+      sha256 "2a7609fd3d258fc6f34c93f3344d8db53b44dea9ee8963f54b2d5612339007fa"
 
       def install
         bin.install "git-gone"
@@ -32,7 +32,7 @@ class GitGone < Formula
   on_linux do
     on_arm do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone_#{version}_linux_arm64.tar.gz"
-      sha256 "97b89f639198d1d6ccc6ba2a75037ab6c465b8b50357ed6b4950b80978574e1c"
+      sha256 "59714cbdb7d670514d543a91cf7b8edc5954738b23a7d4947beb055596f107bb"
 
       def install
         bin.install "git-gone"
@@ -42,7 +42,7 @@ class GitGone < Formula
 
     on_intel do
       url "https://github.com/theburrowhub/git-gone/releases/download/v#{version}/git-gone_#{version}_linux_amd64.tar.gz"
-      sha256 "c68ea2040aae02982e46380828b00abe84f1d350550db30749a2d199a7762b3f"
+      sha256 "140bb67b84c9e06fa6eb0e15557b91f5c491c8cbf56705ae0324f1a460c56302"
 
       def install
         bin.install "git-gone"
