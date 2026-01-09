@@ -80,7 +80,13 @@ jobs:
               SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_linux_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
               SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/go-secrets_${VERSION}_linux_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
               ;;
-            "git-gone"|"cherry-go")
+            "git-gone")
+              SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_darwin_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_darwin_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_linux_arm64.tar.gz" | sha256sum | cut -d' ' -f1)
+              SHA_LINUX_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}_${VERSION}_linux_amd64.tar.gz" | sha256sum | cut -d' ' -f1)
+              ;;
+            "cherry-go")
               SHA_DARWIN_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}-macos-arm64.tar.gz" | sha256sum | cut -d' ' -f1)
               SHA_DARWIN_AMD64=$(curl -sL "${BASE_URL}/${FORMULA}-macos-amd64.tar.gz" | sha256sum | cut -d' ' -f1)
               SHA_LINUX_ARM64=$(curl -sL "${BASE_URL}/${FORMULA}-linux-arm64.tar.gz" | sha256sum | cut -d' ' -f1)
