@@ -10,6 +10,14 @@ brew tap theburrowhub/tap
 
 ## Available Formulae
 
+### fang
+
+A modern, blazing-fast terminal file explorer.
+
+```bash
+brew install theburrowhub/tap/fang
+```
+
 ### krakenv
 
 Environment variable management with annotation-based wizards.
@@ -44,34 +52,13 @@ brew install theburrowhub/tap/cherry-go
 
 ## Automatic Formula Updates
 
-This tap supports automatic formula updates via GitHub Actions.
-
-### Manual Dispatch (GitHub UI)
-
-Go to Actions → "Update Formula" → "Run workflow" and select:
-- `formula`: Which formula to update
-- `version`: Target version (optional, defaults to latest release)
-
-### Repository Dispatch (from project repos)
-
-Send a `repository_dispatch` event from your release workflow:
-
-```yaml
-- name: Update Homebrew tap
-  uses: peter-evans/repository-dispatch@v3
-  with:
-    token: ${{ secrets.TAP_GITHUB_TOKEN }}
-    repository: theburrowhub/homebrew-tap
-    event-type: update-formula
-    client-payload: '{"formula": "krakenv", "version": "${{ github.ref_name }}"}'
-```
-
-> **Note**: Requires a PAT with `repo` scope stored as `TAP_GITHUB_TOKEN` secret.
+Formulae are updated automatically when a new release is published in each project's repository.
 
 ## Documentation
 
 | Formula | Repository | Description |
 |---------|------------|-------------|
+| fang | [theburrowhub/fang](https://github.com/theburrowhub/fang) | Modern terminal file explorer (Rust) |
 | krakenv | [theburrowhub/krakenv](https://github.com/theburrowhub/krakenv) | When envs get complex, release the krakenv |
 | go-secret | [theburrowhub/go-secret](https://github.com/theburrowhub/go-secret) | Terminal UI for GCP Secret Manager |
 | git-gone | [theburrowhub/git-gone](https://github.com/theburrowhub/git-gone) | Clean up Git branches |
