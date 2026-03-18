@@ -4,28 +4,28 @@
 class Fang < Formula
   desc "A modern, fast terminal file explorer"
   homepage "https://theburrowhub.github.io/fang"
-  version "0.8.0"
+  version "0.9.0"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/theburrowhub/fang/releases/download/v#{version}/fang_#{version}_aarch64-apple-darwin.tar.gz"
-      sha256 "5e8aff88d190f8566d164bfd22d5b1f60f0b3601a182a1610797fc0e2cc03f64"
+      sha256 "dcf2dfe973ad1c170a531812448291cf060d25cbb0602645076035ae9f7d6026"
     end
     on_intel do
       url "https://github.com/theburrowhub/fang/releases/download/v#{version}/fang_#{version}_x86_64-apple-darwin.tar.gz"
-      sha256 "d64656c416342adf0a6f9e3af77b0dfec91ff997c9c4e7bfcbb83565b43f6b38"
+      sha256 "f1584df95bf491ae4c2bba2b2d4386dfb89f31f57dd03ee382d2c4b0ea6567f9"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/theburrowhub/fang/releases/download/v#{version}/fang_#{version}_aarch64-unknown-linux-musl.tar.gz"
-      sha256 "3ec52893c60a89e85414f8ea79bc22c2a0c30040926911418b10e8a5f30d3b41"
+      sha256 "f1fd1aa22ea257f6ee32931b620dddf34997c989902b26a01fb04342b9869d80"
     end
     on_intel do
       url "https://github.com/theburrowhub/fang/releases/download/v#{version}/fang_#{version}_x86_64-unknown-linux-musl.tar.gz"
-      sha256 "8c8ad71ff4cf954e4c580e724efb81c4156ff6ccca2268bf1dfa62edff227168"
+      sha256 "89c0238a950ee0d814c8ffefb08a6ccd268ca34d5c0f21aa7565589b5daa5d53"
     end
   end
 
