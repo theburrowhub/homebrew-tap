@@ -4,30 +4,30 @@
 class GoSecret < Formula
   desc "A beautiful terminal UI for managing GCP Secret Manager secrets"
   homepage "https://github.com/theburrowhub/go-secret"
-  version "0.2.0"
+  version "0.3.0"
   license "MIT"
 
   on_macos do
     on_arm do
       url "https://github.com/theburrowhub/go-secret/releases/download/v#{version}/go-secrets_#{version}_darwin_arm64.tar.gz"
-      sha256 "d923b088ecba1b5faeff8ebf2c35456108e61ad355325021b819d8d81a32adb9"
+      sha256 "8beefb6dd41cb87dc2626de5b274a192b05c5610d9981475cb703823ca747c90"
     end
 
     on_intel do
       url "https://github.com/theburrowhub/go-secret/releases/download/v#{version}/go-secrets_#{version}_darwin_amd64.tar.gz"
-      sha256 "4653090344cece13a6bc769970925f7cc878ee578d2ee4241dcad301334f7278"
+      sha256 "34e0dbc285bfd494a420ff6cc06e3f50654f3ce16c55b78fc9f351c471a15e59"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/theburrowhub/go-secret/releases/download/v#{version}/go-secrets_#{version}_linux_arm64.tar.gz"
-      sha256 "a7aa4cbfb4ee98d85b7695c91e219e2312eaafb6b846b5aa7dfca44bd917c790"
+      sha256 "5f03e20e7bf115eae9c0ff29493cd9bc124cd70938ec1b1f171e78859fe8419b"
     end
 
     on_intel do
       url "https://github.com/theburrowhub/go-secret/releases/download/v#{version}/go-secrets_#{version}_linux_amd64.tar.gz"
-      sha256 "007e9daa2b768ee983f4b085a23e4fc041eaaca40f636a39c51b296a86c4a9cd"
+      sha256 "14631904e96f105b90a8e81eb9093545acdab2a797b53b567a36c7c83de91ea0"
     end
   end
 
