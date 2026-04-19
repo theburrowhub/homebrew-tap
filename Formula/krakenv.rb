@@ -5,21 +5,21 @@
 class Krakenv < Formula
   desc "Environment variable management tool with annotation-based wizards"
   homepage "https://github.com/theburrowhub/krakenv"
-  version "0.0.7"
+  version "0.0.8"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.7/krakenv_0.0.7_darwin_amd64.tar.gz"
-      sha256 "39b591f6a7317eb7d44680301daf26ff8142e7dd97705b8dc86ebb9c517d5718"
+      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.8/krakenv_0.0.8_darwin_amd64.tar.gz"
+      sha256 "2f35ae1b4d92cd6610fbc0eccd7db906402ab4377ea0e82e823cc5d811fbf3b5"
 
       define_method(:install) do
         bin.install "krakenv"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.7/krakenv_0.0.7_darwin_arm64.tar.gz"
-      sha256 "8a42aa07752ab1a5d8f4cd6229382a0b076e3163a8eeb93fcad905bb6d3ae72b"
+      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.8/krakenv_0.0.8_darwin_arm64.tar.gz"
+      sha256 "b6f81c5efaf13f578382dfd523bd830eb98fc88efd8c725c23fa2068bef5155c"
 
       define_method(:install) do
         bin.install "krakenv"
@@ -29,15 +29,15 @@ class Krakenv < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.7/krakenv_0.0.7_linux_amd64.tar.gz"
-      sha256 "8580d9bc40e8b50a5f742035346fc9bfd0ca084632e27e94c0d9d9ae7a0deebc"
+      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.8/krakenv_0.0.8_linux_amd64.tar.gz"
+      sha256 "efac81eab5507447072cdeda694e762cb5b4964c81183c9cf1de6f1a50c677e1"
       define_method(:install) do
         bin.install "krakenv"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.7/krakenv_0.0.7_linux_arm64.tar.gz"
-      sha256 "3987e1d8be89604ae762e2503bbbe75bdd386d39a7d70f6aa96f1f82d27b5e1d"
+      url "https://github.com/theburrowhub/krakenv/releases/download/v0.0.8/krakenv_0.0.8_linux_arm64.tar.gz"
+      sha256 "c92df23de5ba9246852364507b6e710c776882806b00505bcb3db562c7a0b3cc"
       define_method(:install) do
         bin.install "krakenv"
       end
