@@ -1,26 +1,26 @@
 class HeimdallmCli < Formula
   desc "CLI client for Heimdallm — monitor PRs, issues, and activity from the terminal"
   homepage "https://github.com/theburrowhub/heimdallm"
-  version "0.4.19"
+  version "0.6.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.4.19/heimdallm-cli_0.4.19_darwin_arm64.tar.gz"
-      sha256 "dbe6186db5f89453d2943b3e495abd8d1deb919a0779a349267be17e736f794e"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.6.0/heimdallm-cli_0.6.0_darwin_arm64.tar.gz"
+      sha256 "a1eef9011a53913622e1126488402a735ff7b3afd69f8204d3e29f2ea14b0548"
     else
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.4.19/heimdallm-cli_0.4.19_darwin_amd64.tar.gz"
-      sha256 "46f6ff86813597ecd4fb484b09f7b203059296bc868a463d1788728dd316416a"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.6.0/heimdallm-cli_0.6.0_darwin_amd64.tar.gz"
+      sha256 "4cfe5d6a6aa66c98c838349ff2bed040bb6dff8c9d7beb46370bd8e1c91ae309"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.4.19/heimdallm-cli_0.4.19_linux_arm64.tar.gz"
-      sha256 "ba0f2d768d776b8d97b96dbe1930a5d6df6273b84f20604c3a05efeb46b6c6e5"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.6.0/heimdallm-cli_0.6.0_linux_arm64.tar.gz"
+      sha256 "8203850bf47613f145d89db6c0dfdf1570243359466f5407af0b52f89ff238d4"
     else
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.4.19/heimdallm-cli_0.4.19_linux_amd64.tar.gz"
-      sha256 "67b58790ba213e044e888582c35ddf1a571938ed77737b09c9058ac8177bee8f"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.6.0/heimdallm-cli_0.6.0_linux_amd64.tar.gz"
+      sha256 "acb658118455ea3d5cbfd2921a50a3f24b7ca9e0830f7dc4bd1ea9fc9d7ae809"
     end
   end
 
