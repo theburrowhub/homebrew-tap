@@ -5,21 +5,21 @@
 class HeimdallmCli < Formula
   desc "CLI client for Heimdallm — monitor PRs, issues, and activity from the terminal"
   homepage "https://github.com/theburrowhub/heimdallm"
-  version "0.8.4"
+  version "0.8.5"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.4/heimdallm-cli_0.8.4_darwin_amd64.tar.gz"
-      sha256 "ba16a3926fb59815b86e466989e584cbd604b86d8b73a1e65bb65ad4d7a39d6c"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.5/heimdallm-cli_0.8.5_darwin_amd64.tar.gz"
+      sha256 "32723966bb9da8dc56bca36be36aaa5670c3ee1ddf60129a45ef4a31cdd75487"
 
       define_method(:install) do
         bin.install "heimdallm-cli"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.4/heimdallm-cli_0.8.4_darwin_arm64.tar.gz"
-      sha256 "3666fc057a327bb5ad47955693bf8fda58a3bc1f721bb320f21f5cce78566205"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.5/heimdallm-cli_0.8.5_darwin_arm64.tar.gz"
+      sha256 "38714e010304585da353e9897ac27d964a5f28b7c955ff20f08a7387963a1a9f"
 
       define_method(:install) do
         bin.install "heimdallm-cli"
@@ -29,15 +29,15 @@ class HeimdallmCli < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.4/heimdallm-cli_0.8.4_linux_amd64.tar.gz"
-      sha256 "5005326e40143391e242384f03cb6083e979451c9ddf3e5227a437f951e241f4"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.5/heimdallm-cli_0.8.5_linux_amd64.tar.gz"
+      sha256 "e6087a67a7fbd83cc08ac223ef036d5c7fe3e70dcf8192343dbd73e660e46b33"
       define_method(:install) do
         bin.install "heimdallm-cli"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.4/heimdallm-cli_0.8.4_linux_arm64.tar.gz"
-      sha256 "dd5ff66c54003ed4613b08cbbfeb4b500eb368e381a408699406934f429fa97f"
+      url "https://github.com/theburrowhub/heimdallm/releases/download/v0.8.5/heimdallm-cli_0.8.5_linux_arm64.tar.gz"
+      sha256 "193c07c9be4bdc1a19267b980abd1f73955925bf8dc0c3757f951aeb787e0c0a"
       define_method(:install) do
         bin.install "heimdallm-cli"
       end
